@@ -58,12 +58,10 @@
   .perdas-title{color:#fff;margin-top:25px;}
   h2 .sec-icon{width:26px;height:26px;flex:none;}
 
-  /* GRADE DE INPUTS — layout Gemini */
+  /* GRADE DE INPUTS */
   .inputs-grid{
-    display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-bottom:15px;margin-top:12px;
+    display:grid;grid-template-columns:1fr 1fr 1fr;gap:15px;margin-bottom:15px;margin-top:12px;
   }
-  .col-1{grid-column:1;}
-  .col-2{grid-column:2;}
   .input-group{display:flex;flex-direction:column;}
   .input-group label{font-size:13px;color:#aaaaaa;margin-bottom:5px;}
   .input-wrapper{position:relative;display:flex;align-items:center;}
@@ -77,7 +75,7 @@
     position:absolute;right:12px;color:#666666;font-size:13px;pointer-events:none;
   }
 
-  /* CARDS DE PERDA — layout Gemini */
+  /* CARDS DE PERDA */
   .loss-card{
     background-color:rgba(255,51,51,0.12);
     border:1px solid rgba(255,51,51,0.25);
@@ -98,7 +96,7 @@
   .toggle-btn:hover{color:#fff;}
   .icon-eye{width:22px;height:22px;fill:currentColor;}
 
-  /* CARD TOTAL — layout Gemini */
+  /* CARD TOTAL */
   .total-card{
     background-color:rgba(255,51,51,0.18);
     border:1px solid rgba(255,51,51,0.4);
@@ -111,7 +109,6 @@
 
   @media (max-width:640px){
     .inputs-grid{grid-template-columns:1fr;}
-    .col-1,.col-2{grid-column:1;}
     .title{font-size:26px;}
     .gap-150{height:90px;}
     .total-card{flex-direction:column;align-items:flex-start;}
@@ -143,39 +140,39 @@
       </h2>
 
       <div class="inputs-grid">
-        <div class="input-group col-1">
+        <div class="input-group">
           <label>Número de profissionais (barbeiros)</label>
           <div class="input-wrapper"><input type="number" id="barbeiros" value="4"></div>
         </div>
-        <div class="input-group col-2">
+        <div class="input-group">
           <label>Ticket Médio de Serviços</label>
           <div class="input-wrapper"><input type="number" id="ticket" value="50"><span class="input-prefix-suffix">R$</span></div>
         </div>
-        <div class="input-group col-1">
+        <div class="input-group">
           <label>Número de clientes mensal</label>
           <div class="input-wrapper"><input type="number" id="clientes" value="300"></div>
         </div>
-        <div class="input-group col-2">
+        <div class="input-group">
           <label>Taxa de No-Show</label>
           <div class="input-wrapper"><input type="number" id="noshow" value="15"></div>
         </div>
-        <div class="input-group col-1">
+        <div class="input-group">
           <label>Cancelamentos de última hora</label>
           <div class="input-wrapper"><input type="number" id="cancelamentos" value="10"></div>
         </div>
-        <div class="input-group col-2">
+        <div class="input-group">
           <label>Horas ociosas por barbeiro</label>
           <div class="input-wrapper"><input type="number" id="ociosas" value="12"></div>
         </div>
-        <div class="input-group col-1">
+        <div class="input-group">
           <label>Intervalo médio de retorno real</label>
           <div class="input-wrapper"><input type="number" id="retorno_real" value="25"><span class="input-prefix-suffix">dias</span></div>
         </div>
-        <div class="input-group col-2">
+        <div class="input-group">
           <label>Clientes inativos (Churn)</label>
           <div class="input-wrapper"><input type="number" id="churn" value="20"></div>
         </div>
-        <div class="input-group col-1">
+        <div class="input-group">
           <label>Mensagens não respondidas</label>
           <div class="input-wrapper"><input type="number" id="whatsapp" value="30"></div>
         </div>
@@ -279,13 +276,9 @@
     const churn         = parseFloat(document.getElementById('churn').value) || 0;
     const whatsapp      = parseFloat(document.getElementById('whatsapp').value) || 0;
 
-    // 1. No-Shows e Cancelamentos  (fórmula Notion: x 4,33)
     const perdaNoShow = (noshow + cancelamentos) * SEMANAS_MES * ticket;
-
-    // 2. Ociosidade  (fórmula Notion: x 4,33)
     const perdaOciosidade = ociosas * barbeiros * SEMANAS_MES * ticket;
 
-    // 3. Retorno — só conta acima de 12 dias
     const faturamentoAtual = clientes * ticket;
     let perdaRetorno = 0;
     if (retornoReal > 12 && retornoIdeal > 0) {
@@ -293,10 +286,7 @@
       perdaRetorno = faturamentoPotencial - faturamentoAtual;
     }
 
-    // 4. Churn
     const perdaChurn = churn * (30 / retornoIdeal) * ticket;
-
-    // 5. WhatsApp
     const perdaWhatsApp = whatsapp * ticket;
 
     const perdaTotalMensal = perdaNoShow + perdaOciosidade + perdaRetorno + perdaChurn + perdaWhatsApp;
