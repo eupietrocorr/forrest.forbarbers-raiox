@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Raio-X de Crescimento</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --red:#ff3333;
+    --panel:#1F1F23;
+    --field:#1e1e1e;
+    --field-border:#333333;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    background:#FFFFFF;
+    font-family:'Inter',sans-serif;
+    color:#1F1F23;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding-bottom:50px;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* TOPO conforme spec */
+  .logo-container{margin-top:50px;text-align:center;}
+  .logo-container img{height:150px;width:auto;display:inline-block;}
+  .title{
+    font-family:'Archivo Black',sans-serif;
+    font-size:34px;line-height:1.1;text-align:center;margin-top:60px;color:#1F1F23;font-weight:400;
+  }
+  .subtitle{
+    font-weight:400;text-align:center;margin-top:10px;font-size:16px;color:#555;
+  }
+  .gap-150{height:150px;}
+
+  /* CARD PRINCIPAL */
+  .main-card{
+    background-color:var(--panel);
+    border-radius:12px;
+    width:100%;
+    max-width:900px;
+    padding:10px;
+    color:#fff;
+    margin-bottom:80px;
+  }
+  .main-card-inner{padding:18px;}
+
+  h2{
+    font-family:'Archivo Black',sans-serif;
+    font-size:20px;font-weight:400;margin-bottom:12px;display:flex;align-items:center;gap:10px;
+  }
+  .perf-title{color:#fff;}
+  .perdas-title{color:#fff;margin-top:25px;}
+  h2 .sec-icon{width:26px;height:26px;flex:none;}
+
+  /* GRADE DE INPUTS — layout Gemini */
+  .inputs-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-bottom:15px;margin-top:12px;
+  }
+  .col-1{grid-column:1;}
+  .col-2{grid-column:2;}
+  .input-group{display:flex;flex-direction:column;}
+  .input-group label{font-size:13px;color:#aaaaaa;margin-bottom:5px;}
+  .input-wrapper{position:relative;display:flex;align-items:center;}
+  .input-wrapper input{
+    width:100%;background-color:var(--field);border:1px solid var(--field-border);
+    border-radius:6px;padding:12px;color:#fff;font-family:'Inter',sans-serif;font-size:15px;
+    outline:none;transition:border-color .3s;
+  }
+  .input-wrapper input:focus{border-color:var(--red);}
+  .input-prefix-suffix{
+    position:absolute;right:12px;color:#666666;font-size:13px;pointer-events:none;
+  }
+
+  /* CARDS DE PERDA — layout Gemini */
+  .loss-card{
+    background-color:rgba(255,51,51,0.12);
+    border:1px solid rgba(255,51,51,0.25);
+    border-radius:8px;padding:15px;margin-bottom:12px;
+    display:flex;justify-content:space-between;align-items:center;gap:12px;
+  }
+  .loss-info h3{color:var(--red);font-size:15px;font-weight:600;margin-bottom:4px;}
+  .loss-info p{color:#fff;font-size:13px;margin-bottom:8px;}
+  .loss-value-box{color:var(--red);font-size:18px;font-weight:700;}
+
+  .blurred{filter:blur(6px);user-select:none;transition:filter .3s ease;}
+  .unblurred{filter:none !important;}
+
+  .toggle-btn{
+    background:none;border:none;cursor:pointer;color:#888888;transition:color .2s;
+    display:flex;align-items:center;flex:none;
+  }
+  .toggle-btn:hover{color:#fff;}
+  .icon-eye{width:22px;height:22px;fill:currentColor;}
+
+  /* CARD TOTAL — layout Gemini */
+  .total-card{
+    background-color:rgba(255,51,51,0.18);
+    border:1px solid rgba(255,51,51,0.4);
+    border-radius:8px;padding:20px;margin-top:15px;
+    display:flex;justify-content:space-between;align-items:center;gap:16px;
+  }
+  .total-left{display:flex;align-items:center;gap:20px;}
+  .total-right{display:flex;flex-direction:column;gap:5px;text-align:right;}
+  .total-value-line{color:var(--red);font-size:22px;font-weight:700;}
+
+  @media (max-width:640px){
+    .inputs-grid{grid-template-columns:1fr;}
+    .col-1,.col-2{grid-column:1;}
+    .title{font-size:26px;}
+    .gap-150{height:90px;}
+    .total-card{flex-direction:column;align-items:flex-start;}
+    .total-right{text-align:left;}
+  }
+</style>
+</head>
+<body>
+
+  <div class="logo-container">
+    <img src="https://i.postimg.cc/qMjtKHnF/For-Babers.jpg" alt="Logo">
+    <h1 class="title">Raio-X de Crescimento</h1>
+    <p class="subtitle">Descubra o Que Está Travando Seu Negócio e Como Corrigir Isso Agora!</p>
+  </div>
+
+  <div class="gap-150"></div>
+
+  <div class="main-card">
+    <div class="main-card-inner">
+
+      <h2 class="perf-title">
+        <svg class="sec-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="2" width="16" height="20" rx="2" stroke="#ff3333" stroke-width="2"/>
+          <rect x="7" y="5" width="10" height="3" rx="1" fill="#ff3333"/>
+          <circle cx="8" cy="12" r="1.2" fill="#ff3333"/><circle cx="12" cy="12" r="1.2" fill="#ff3333"/><circle cx="16" cy="12" r="1.2" fill="#ff3333"/>
+          <circle cx="8" cy="16" r="1.2" fill="#ff3333"/><circle cx="12" cy="16" r="1.2" fill="#ff3333"/><circle cx="16" cy="16" r="1.2" fill="#ff3333"/>
+        </svg>
+        Diagnóstico de Performance
+      </h2>
+
+      <div class="inputs-grid">
+        <div class="input-group col-1">
+          <label>Número de profissionais (barbeiros)</label>
+          <div class="input-wrapper"><input type="number" id="barbeiros" value="4"></div>
+        </div>
+        <div class="input-group col-2">
+          <label>Ticket Médio de Serviços</label>
+          <div class="input-wrapper"><input type="number" id="ticket" value="50"><span class="input-prefix-suffix">R$</span></div>
+        </div>
+        <div class="input-group col-1">
+          <label>Número de clientes mensal</label>
+          <div class="input-wrapper"><input type="number" id="clientes" value="300"></div>
+        </div>
+        <div class="input-group col-2">
+          <label>Taxa de No-Show</label>
+          <div class="input-wrapper"><input type="number" id="noshow" value="15"></div>
+        </div>
+        <div class="input-group col-1">
+          <label>Cancelamentos de última hora</label>
+          <div class="input-wrapper"><input type="number" id="cancelamentos" value="10"></div>
+        </div>
+        <div class="input-group col-2">
+          <label>Horas ociosas por barbeiro</label>
+          <div class="input-wrapper"><input type="number" id="ociosas" value="12"></div>
+        </div>
+        <div class="input-group col-1">
+          <label>Intervalo médio de retorno real</label>
+          <div class="input-wrapper"><input type="number" id="retorno_real" value="25"><span class="input-prefix-suffix">dias</span></div>
+        </div>
+        <div class="input-group col-2">
+          <label>Clientes inativos (Churn)</label>
+          <div class="input-wrapper"><input type="number" id="churn" value="20"></div>
+        </div>
+        <div class="input-group col-1">
+          <label>Mensagens não respondidas</label>
+          <div class="input-wrapper"><input type="number" id="whatsapp" value="30"></div>
+        </div>
+      </div>
+
+      <h2 class="perdas-title">
+        <svg class="sec-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 3L22 20H2L12 3Z" stroke="#ff3333" stroke-width="2" stroke-linejoin="round"/>
+          <rect x="11" y="9" width="2" height="6" rx="1" fill="#ff3333"/>
+          <circle cx="12" cy="17.5" r="1.2" fill="#ff3333"/>
+        </svg>
+        Diagnóstico de Perdas
+      </h2>
+
+      <div class="loss-card">
+        <div class="loss-info">
+          <h3>1. No-Shows e Cancelamentos</h3>
+          <p>Prejuízo com agendamentos perdidos ou cancelados em cima da hora.</p>
+          <div class="loss-value-box">R$ <span id="v_noshow" class="blurred">0,00</span>/mês</div>
+        </div>
+        <button class="toggle-btn" onclick="toggleBlur('v_noshow')">
+          <svg class="icon-eye" viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+        </button>
+      </div>
+
+      <div class="loss-card">
+        <div class="loss-info">
+          <h3>2. Cadeiras Vazias (Ociosidade)</h3>
+          <p>Custo operacional do tempo em que seus profissionais ficam parados.</p>
+          <div class="loss-value-box">R$ <span id="v_ociosa" class="blurred">0,00</span>/mês</div>
+        </div>
+        <button class="toggle-btn" onclick="toggleBlur('v_ociosa')">
+          <svg class="icon-eye" viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+        </button>
+      </div>
+
+      <div class="loss-card">
+        <div class="loss-info">
+          <h3>3. Demora no Retorno do Cliente</h3>
+          <p>Dinheiro que deixa de entrar porque o cliente demora mais do que o ideal (10 dias) para voltar.</p>
+          <div class="loss-value-box">R$ <span id="v_retorno" class="blurred">0,00</span>/mês</div>
+        </div>
+        <button class="toggle-btn" onclick="toggleBlur('v_retorno')">
+          <svg class="icon-eye" viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+        </button>
+      </div>
+
+      <div class="loss-card">
+        <div class="loss-info">
+          <h3>4. Clientes que Sumiram (Churn)</h3>
+          <p>Receita perdida acumulada com clientes que abandonaram a base ativa.</p>
+          <div class="loss-value-box">R$ <span id="v_churn" class="blurred">0,00</span>/mês</div>
+        </div>
+        <button class="toggle-btn" onclick="toggleBlur('v_churn')">
+          <svg class="icon-eye" viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+        </button>
+      </div>
+
+      <div class="loss-card">
+        <div class="loss-info">
+          <h3>5. WhatsApp sem Resposta</h3>
+          <p>Lead ou cliente interessado que não teve retorno e agendou em outro lugar.</p>
+          <div class="loss-value-box">R$ <span id="v_whatsapp" class="blurred">0,00</span>/mês</div>
+        </div>
+        <button class="toggle-btn" onclick="toggleBlur('v_whatsapp')">
+          <svg class="icon-eye" viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+        </button>
+      </div>
+
+      <div class="total-card">
+        <div class="total-left">
+          <div class="loss-info" style="margin:0;">
+            <h3 style="font-size:18px;margin-bottom:6px;">🎯 Impacto Total das Perdas</h3>
+            <p style="margin:0;">Se você otimizar seus processos, pode aumentar seu faturamento em:</p>
+          </div>
+          <button class="toggle-btn" onclick="toggleBlurTotal()">
+            <svg class="icon-eye" viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+          </button>
+        </div>
+        <div class="total-right">
+          <div class="total-value-line">R$ <span id="total_mes" class="blurred">0,00</span>/mês</div>
+          <div class="total-value-line" style="font-size:20px;opacity:0.9;">R$ <span id="total_ano" class="blurred">0,00</span>/ano</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+<script>
+  const retornoIdeal = 10;
+  const SEMANAS_MES = 4.33;
+
+  function calcular(){
+    const barbeiros     = parseFloat(document.getElementById('barbeiros').value) || 0;
+    const ticket        = parseFloat(document.getElementById('ticket').value) || 0;
+    const clientes      = parseFloat(document.getElementById('clientes').value) || 0;
+    const noshow        = parseFloat(document.getElementById('noshow').value) || 0;
+    const cancelamentos = parseFloat(document.getElementById('cancelamentos').value) || 0;
+    const ociosas       = parseFloat(document.getElementById('ociosas').value) || 0;
+    const retornoReal   = parseFloat(document.getElementById('retorno_real').value) || 0;
+    const churn         = parseFloat(document.getElementById('churn').value) || 0;
+    const whatsapp      = parseFloat(document.getElementById('whatsapp').value) || 0;
+
+    // 1. No-Shows e Cancelamentos  (fórmula Notion: x 4,33)
+    const perdaNoShow = (noshow + cancelamentos) * SEMANAS_MES * ticket;
+
+    // 2. Ociosidade  (fórmula Notion: x 4,33)
+    const perdaOciosidade = ociosas * barbeiros * SEMANAS_MES * ticket;
+
+    // 3. Retorno — só conta acima de 12 dias
+    const faturamentoAtual = clientes * ticket;
+    let perdaRetorno = 0;
+    if (retornoReal > 12 && retornoIdeal > 0) {
+      const faturamentoPotencial = faturamentoAtual * (retornoReal / retornoIdeal);
+      perdaRetorno = faturamentoPotencial - faturamentoAtual;
+    }
+
+    // 4. Churn
+    const perdaChurn = churn * (30 / retornoIdeal) * ticket;
+
+    // 5. WhatsApp
+    const perdaWhatsApp = whatsapp * ticket;
+
+    const perdaTotalMensal = perdaNoShow + perdaOciosidade + perdaRetorno + perdaChurn + perdaWhatsApp;
+    const perdaTotalAnual = perdaTotalMensal * 12;
+
+    const f = n => n.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+    document.getElementById('v_noshow').innerText   = f(perdaNoShow);
+    document.getElementById('v_ociosa').innerText   = f(perdaOciosidade);
+    document.getElementById('v_retorno').innerText  = f(perdaRetorno);
+    document.getElementById('v_churn').innerText    = f(perdaChurn);
+    document.getElementById('v_whatsapp').innerText = f(perdaWhatsApp);
+    document.getElementById('total_mes').innerText  = f(perdaTotalMensal);
+    document.getElementById('total_ano').innerText  = f(perdaTotalAnual);
+  }
+
+  function toggleBlur(id){
+    document.getElementById(id).classList.toggle('unblurred');
+  }
+  function toggleBlurTotal(){
+    document.getElementById('total_mes').classList.toggle('unblurred');
+    document.getElementById('total_ano').classList.toggle('unblurred');
+  }
+
+  document.querySelectorAll('input').forEach(i=>i.addEventListener('input',calcular));
+  window.onload = calcular;
+</script>
+</body>
+</html>
